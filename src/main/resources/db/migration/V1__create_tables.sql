@@ -1,0 +1,43 @@
+use ota_posts_db;
+
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS categories;
+
+CREATE TABLE categories (
+    category_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (category_id),
+    UNIQUE (name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE posts (
+    post_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    title VARCHAR(50) NOT NULL,
+    body TEXT NOT NULL,
+    profile_id BIGINT UNSIGNED NOT NULL,
+    category_id BIGINT UNSIGNED NOT NULL,
+    skill_level ENUM('Beginner', 'Intermediate', 'Expert') NOT NULL,
+    status ENUM('Draft', 'Published') NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    PRIMARY KEY (post_id),
+    CONSTRAINT FK_category_id FOREIGN KEY (category_id)
+        REFERENCES categories(category_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+CREATE TABLE comments (
+    comment_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    profile_id BIGINT UNSIGNED NOT NULL,
+    post_id BIGINT UNSIGNED NOT NULL,
+    body TINYTEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    PRIMARY KEY (comment_id),
+    CONSTRAINT FK_post_id FOREIGN KEY (post_id)
+        REFERENCES posts(post_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
