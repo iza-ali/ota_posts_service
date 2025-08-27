@@ -1,6 +1,11 @@
 package com.iaali.ota_posts_service.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,4 +26,7 @@ public class CategoryEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "is_deleted", nullable = false)
+    private boolean deleted;
 }

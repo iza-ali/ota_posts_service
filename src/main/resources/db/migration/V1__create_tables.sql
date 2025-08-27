@@ -8,6 +8,7 @@ CREATE TABLE categories (
     category_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     PRIMARY KEY (category_id),
+    is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
     UNIQUE (name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

@@ -1,6 +1,7 @@
 package com.iaali.ota_posts_service.dto;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +11,11 @@ import lombok.NoArgsConstructor;
 @Data
 public class CategoryDTO {
 
-    private Long followedId;
+    private Long id;
 
-    @NotNull(message = "Category name is required")
+    @NotBlank(message = "Category name is required")
+    @Size(min = 1, max = 50, message = "Name must be between 1 and 50 characters")
     private String name;
+
+    private boolean deleted;
 }
